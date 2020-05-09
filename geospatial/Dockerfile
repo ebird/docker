@@ -1,0 +1,81 @@
+# add r and python geospatial tools
+FROM mstrimas/tidyverse
+
+MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
+LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
+
+# install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
+
+# connect to ubuntugis/ubuntugis-unstable to get latest versions of spatial libraries
+RUN apt-get update \
+  && apt-get install -y software-properties-common \
+  && add-apt-repository ppa:ubuntugis/ubuntugis-unstable -y
+
+# install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
+RUN apt-get update \
+  && apt-get install -y \
+    lbzip2 \
+    libfftw3-dev \
+    libgeos-dev \
+    libgdal-dev \
+    libgsl0-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libhdf4-alt-dev \
+    libhdf5-dev \
+    libjq-dev \
+    liblwgeom-dev \
+    libmysqlclient-dev \
+    libpq-dev \
+    libproj-dev \
+    libprotobuf-dev \
+    libnetcdf-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libudunits2-dev \
+    netcdf-bin \
+    postgis \
+    protobuf-compiler \
+    sqlite3 \
+    tk-dev \
+    unixodbc-dev
+
+RUN install2.r --error \
+    RColorBrewer \
+    RandomFields \
+    RNetCDF \
+    countrycode \
+    classInt \
+    fasterize \
+    geofacet \
+    gstat \
+    hdf5r \
+    lwgeom \
+    mapproj \
+    ncdf4 \
+    proj4 \
+    raster \
+    rasterVis \
+    rgdal \
+    rgeos \
+    rnaturalearth rnaturalearthdata \
+    sf \
+    sp \
+    stars \
+    spacetime \
+    spatstat \
+    spdep \
+    geoR \
+    geosphere \
+    ## from bioconductor
+  && R -e "BiocManager::install('rhdf5', update=FALSE, ask=FALSE)" \
+  && installGithub.r rspatial/terra r-barnes/dggridR ropensci/rnaturalearthhires
+
+# gdal binaries, including python bindings
+RUN apt-get update \
+  && apt-get install -y libgdal-dev gdal-bin python3-dev python3-pip python3-numpy python3-gdal \
+  && git clone https://github.com/mstrimas/gdal-summarize.git \
+  && mv gdal-summarize/gdal-summarize.py /usr/bin/ \
+  && rm -rf gdal-summarize/
+
+CMD ["bash"]
