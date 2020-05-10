@@ -50,6 +50,7 @@ RUN install2.r --error \
     geofacet \
     gstat \
     hdf5r \
+    janitor \
     lwgeom \
     mapproj \
     ncdf4 \

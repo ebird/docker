@@ -42,7 +42,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     littler \
-                r-cran-littler \
+    r-cran-littler \
     r-base=${R_BASE_VERSION}-* \
     r-base-dev=${R_BASE_VERSION}-* \
     r-recommended=${R_BASE_VERSION}-* \
@@ -52,8 +52,9 @@ RUN apt-get update \
   && ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
   && install.r docopt \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
-  && rm -rf /var/lib/apt/lists/*
-
+  && rm -rf /var/lib/apt/lists/* \
+  && echo 'alias R="R --no-save --no-restore-data --no-restore"' >> /etc/bash.bashrc \
+  && echo 'alias ll="ls -lh"' >> /etc/bash.bashrc
 
 # install tidyverse, from https://hub.docker.com/r/rocker/tidyverse/dockerfile
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
@@ -66,7 +67,6 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libssh2-1-dev \
   unixodbc-dev \
   libsasl2-dev \
-  ### mstrimas: needed to add these to get httr working
   libcurl4-openssl-dev \
   libssl-dev \
   ###
@@ -75,9 +75,9 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     tidyverse \
     data.table \
     dplyr \
+    here \
     foreach doParallel \
     remotes \
-    selectr \
     tictoc \
     BiocManager
 
