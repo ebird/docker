@@ -4,6 +4,8 @@ FROM mstrimas/tidyverse
 MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
+USER root
+
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
 
 # connect to ubuntugis/ubuntugis-unstable to get latest versions of spatial libraries
@@ -78,5 +80,8 @@ RUN apt-get update \
   && git clone https://github.com/mstrimas/gdal-summarize.git \
   && mv gdal-summarize/gdal-summarize.py /usr/bin/ \
   && rm -rf gdal-summarize/
+
+WORKDIR /home/docker/
+USER docker
 
 CMD ["bash"]

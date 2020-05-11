@@ -4,6 +4,8 @@ FROM ubuntu:18.04
 MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
+USER root
+
 # install latest r version
 # from https://hub.docker.com/r/rocker/r-ubuntu/dockerfile
 
