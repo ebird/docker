@@ -29,6 +29,4 @@ RUN install2.r --error \
   # edarf was removed from cran, use archived versions.
   && r -e 'remotes::install_version("edarf", version = "1.1.1", repos = "http://cran.us.r-project.org")'
 
-#WORKDIR /home/docker/
-#USER docker
 CMD ["bash"]
