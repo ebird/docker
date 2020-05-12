@@ -6,6 +6,8 @@ LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 FROM mstrimas/geospatial
 
+USER root
+
 # system tools needed
 RUN apt-get update -y \
   && apt-get install -y \
@@ -28,5 +30,8 @@ RUN install2.r --error \
     units uuid \
   # edarf was removed from cran, use archived versions.
   && r -e 'remotes::install_version("edarf", version = "1.1.1", repos = "http://cran.us.r-project.org")'
+
+WORKDIR /home/docker/
+USER docker
 
 CMD ["bash"]
