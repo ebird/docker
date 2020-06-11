@@ -29,7 +29,8 @@ RUN install2.r --error \
     smoothr \
     units uuid \
   # edarf was removed from cran, use archived versions.
-  && r -e 'remotes::install_version("edarf", version = "1.1.1", repos = "http://cran.us.r-project.org")'
+  && r -e 'remotes::install_version("edarf", version = "1.1.1", repos = "http://cran.us.r-project.org")' \ 
+  && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk
 
 WORKDIR /home/docker/
 USER docker
