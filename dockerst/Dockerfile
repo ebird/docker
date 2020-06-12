@@ -32,4 +32,4 @@ RUN install2.r --error \
 
 WORKDIR /home/docker/
 
-CMD ["bash"]
+CMD ["/start.sh"]

@@ -81,4 +81,4 @@ RUN apt-get update \
 
 WORKDIR /home/docker/
 
-CMD ["bash"]
+CMD ["/start.sh"]

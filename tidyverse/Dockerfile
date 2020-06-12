@@ -80,7 +80,9 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     remotes \
     tictoc \
     BiocManager
-
+  
+COPY start.sh /start.sh
 WORKDIR /home/docker/
 
-CMD ["bash"]
+CMD ["/start.sh"]
+
