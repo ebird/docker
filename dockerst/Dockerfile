@@ -6,8 +6,6 @@ LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 FROM mstrimas/geospatial
 
-USER root
-
 # system tools needed
 RUN apt-get update -y \
   && apt-get install -y \
@@ -33,6 +31,5 @@ RUN install2.r --error \
   && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk
 
 WORKDIR /home/docker/
-USER docker
 
 CMD ["bash"]

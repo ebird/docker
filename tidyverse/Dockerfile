@@ -82,6 +82,5 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     BiocManager
 
 WORKDIR /home/docker/
-USER docker
 
 CMD ["bash"]
