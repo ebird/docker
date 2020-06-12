@@ -85,4 +85,3 @@ COPY start.sh /start.sh
 WORKDIR /home/docker/
 
 CMD ["/start.sh"]
-
