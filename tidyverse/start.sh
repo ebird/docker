@@ -6,7 +6,6 @@ USER=${USER:=docker}
 USERID=${USERID:=1000}
 GROUPID=${GROUPID:=1000}
 ROOT=${ROOT:=FALSE}
-UMASK=${UMASK:=022}
 
 # make sure r inherits the full path
 # echo "PATH=${PATH}" >> /usr/lib/R/etc/Renviron
@@ -14,12 +13,13 @@ UMASK=${UMASK:=022}
 
 if [ "$USER" != "docker" ]
   then
-    cp -r /home/docker /home/$USER
-    usermod -l $USER -d /home/$USER docker
-    groupmod -n $USER docker
-    usermod -a -G staff $USER
-    chown -R $USER:$USER /home/$USER
+    useradd $USER -u $USERID -g $GROUPID -d /home/docker
 
+    # cp -r /home/docker /home/$USER
+    # usermod -l $USER -d /home/$USER docker
+    # groupmod -n $USER docker
+    # usermod -a -G staff $USER
+    # chown -R $USER:$USER /home/$USER
     # add a password to user
     # echo "$USER:$PASSWORD" | chpasswd
     
