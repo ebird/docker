@@ -1,5 +1,5 @@
 # docker image for ebird status and trends
-FROM mstrimas/tidyverse
+FROM mstrimas/geospatial
 
 MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
@@ -17,7 +17,7 @@ RUN apt-get update -y \
 # R packages needed
 RUN install2.r --error \
     DBI RSQLite   \
-    ranger scam gbm mgcv MASS PresenceAbsence DescTools \
+    ranger grf scam gbm mgcv MASS PresenceAbsence DescTools \
     argparse auk \
     car \
     digest \
@@ -26,8 +26,6 @@ RUN install2.r --error \
     pryr \
     smoothr \
     units uuid \
-  # edarf was removed from cran, use archived versions.
-  && r -e 'remotes::install_version("edarf", version = "1.1.1", repos = "http://cran.us.r-project.org")' \ 
   && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk
 
 WORKDIR /home/docker/
