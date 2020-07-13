@@ -4,8 +4,6 @@ FROM mstrimas/geospatial
 MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
-FROM mstrimas/geospatial
-
 # system tools needed
 RUN apt-get update -y \
   && apt-get install -y \
