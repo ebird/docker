@@ -13,7 +13,7 @@ RUN apt-get update -y \
     imagemagick
 
 # R packages needed
-RUN install2.r --error \
+RUN install.r \
     DBI RSQLite   \
     ranger grf scam gbm mgcv MASS PresenceAbsence DescTools \
     argparse auk \
