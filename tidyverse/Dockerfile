@@ -1,11 +1,7 @@
-# ubuntu tidyverse image
-FROM ubuntu:18.04
+FROM rstudio/r-base:4.0-focal
 
 MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
-
-# install latest r version
-# from https://hub.docker.com/r/rocker/r-ubuntu/dockerfile
 
 ## set a default user, available via runtime flag `--user docker`
 ## add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
@@ -14,7 +10,7 @@ RUN useradd docker \
   && mkdir /home/docker \
   && chown docker:docker /home/docker \
   && addgroup docker staff
-
+  
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     git \
@@ -23,8 +19,7 @@ RUN apt-get update \
     less \
     locales \
     vim-tiny \
-    ca-certificates \
-  && add-apt-repository --enable-source --yes "ppa:edd/r-4.0"
+    ca-certificates
 
 ## configure default locale, see https://github.com/rocker-org/rocker/issues/19
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
@@ -33,29 +28,21 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
-ENV R_BASE_VERSION 4.0.0
 
-## this was not needed before but we need it now
-ENV DEBIAN_FRONTEND noninteractive
+## use rstudio package manager
+RUN echo 'options(repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/__linux__/focal/latest"))' > /usr/lib/R/etc/Rprofile.site \
+  && echo 'REPOS=https://packagemanager.rstudio.com/all/__linux__/focal/latest' >> /usr/lib/R/etc/Renviron \
+  && echo 'LIBLOC=/usr/lib/R/library/' >> /usr/lib/R/etc/Renviron \
+  && echo 'alias R="R --no-save --no-restore-data --no-restore"' >> /etc/bash.bashrc
+  
 
-## install R and littler, and create a link for littler in /usr/local/bin
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends \
-    littler \
-    r-cran-littler \
-    r-base=${R_BASE_VERSION}-* \
-    r-base-dev=${R_BASE_VERSION}-* \
-    r-recommended=${R_BASE_VERSION}-* \
-  && ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
-  && ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
-  && ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-  && ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
-  && install.r docopt \
-  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
-  && rm -rf /var/lib/apt/lists/* \
-  && echo 'alias R="R --no-save --no-restore-data --no-restore"' >> /etc/bash.bashrc \
-  && echo 'alias ll="ls -lh"' >> /etc/bash.bashrc
-
+# install littler
+RUN R --slave -e 'install.packages(c("littler", "docopt"))' \ 
+  && ln -s /usr/lib/R/library/littler/bin/r /usr/local/bin/r \
+  && ln -s /usr/lib/R/library/littler/examples/install.r /usr/local/bin/install.r \
+  && ln -s /usr/lib/R/library/littler/examples/install2.r /usr/local/bin/install2.r \
+  && ln -s /usr/lib/R/library/littler/examples/installGithub.r /usr/local/bin/installGithub.r
+  
 # install tidyverse, from https://hub.docker.com/r/rocker/tidyverse/dockerfile
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
@@ -69,17 +56,14 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libsasl2-dev \
   libcurl4-openssl-dev \
   libssl-dev \
-  ###
-  && install2.r --error \
-    --deps TRUE \
+  && install.r \
     tidyverse \
     data.table \
-    dplyr \
     here \
     foreach doParallel \
     remotes \
-    tictoc \
-    BiocManager
+    RSQLite \
+    tictoc
   
 COPY start.sh /start.sh
 WORKDIR /home/docker/
