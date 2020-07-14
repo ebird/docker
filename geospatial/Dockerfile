@@ -70,6 +70,9 @@ RUN install.r \
     geoR \
     geosphere \
   && installGithub.r rspatial/terra r-barnes/dggridR ropensci/rnaturalearthhires
+
+# fix proj issue on singularity  
+RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron
   
 WORKDIR /home/docker/
 
