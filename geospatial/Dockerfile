@@ -42,7 +42,6 @@ RUN apt-get update \
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
 RUN install.r \
-    RColorBrewer \
     RandomFields \
     RNetCDF \
     countrycode \

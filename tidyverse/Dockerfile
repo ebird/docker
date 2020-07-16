@@ -61,7 +61,9 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     foreach doParallel \
     remotes \
     RSQLite \
-    tictoc
+    tictoc \
+    RColorBrewer \
+    viridis
   
 COPY start.sh /start.sh
 WORKDIR /home/docker/
