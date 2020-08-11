@@ -21,7 +21,7 @@ RUN install.r \
     digest \
     fields \
     gbm \
-    pryr \
+    plyr pryr \
     smoothr \
     units uuid \
   && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk tomauer/fastRfuncs
