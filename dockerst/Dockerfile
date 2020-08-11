@@ -24,7 +24,7 @@ RUN install.r \
     pryr \
     smoothr \
     units uuid \
-  && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk
+  && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk tomauer/fastRfuncs
 
 WORKDIR /home/docker/
 
