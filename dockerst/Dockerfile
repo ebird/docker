@@ -26,7 +26,6 @@ RUN install.r \
     ranger readr
     scam smoothr \
     units uuid \
-    velox \
   && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk tomauer/fastRfuncs
 
 WORKDIR /home/docker/
