@@ -23,7 +23,7 @@ RUN install.r \
     gbm grf \
     mgcv \
     pryr \
-    ranger readr
+    ranger readr \
     scam smoothr \
     units uuid \
   && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk tomauer/fastRfuncs
