@@ -10,7 +10,8 @@ RUN apt-get update -y \
     awscli \
     expect \
     ffmpeg \
-    imagemagick
+    imagemagick \
+    rsync
 
 # R packages needed
 RUN install.r \
