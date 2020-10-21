@@ -35,7 +35,7 @@ RUN echo 'options(repos = c(REPO_NAME = "https://packagemanager.rstudio.com/all/
   && echo 'alias R="R --no-save --no-restore-data --no-restore"' >> /etc/bash.bashrc
 
 # install littler
-RUN R --slave -e 'install.packages(c("littler", "docopt"))' \ 
+RUN R --slave -e 'install.packages(c("littler", "docopt"), repos = "https://cloud.r-project.org", type = "source")' \ 
   && ln -s /usr/lib/R/library/littler/bin/r /usr/local/bin/r \
   && ln -s /usr/lib/R/library/littler/examples/install.r /usr/local/bin/install.r \
   && ln -s /usr/lib/R/library/littler/examples/install2.r /usr/local/bin/install2.r \
