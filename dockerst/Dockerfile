@@ -27,7 +27,11 @@ RUN install.r \
     ranger readr \
     scam smoothr \
     units uuid \
-  && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk tomauer/fastRfuncs
+  && installGithub.r \
+    cornelllabofornithology/auk \
+    cornelllabofornithology/ebirdst \
+    tomauer/fastRfuncs
+  
 
 WORKDIR /home/docker/
 
