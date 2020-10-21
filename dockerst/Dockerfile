@@ -10,19 +10,22 @@ RUN apt-get update -y \
     awscli \
     expect \
     ffmpeg \
-    imagemagick
+    imagemagick \
+    rsync
 
 # R packages needed
 RUN install.r \
-    DBI RSQLite   \
-    ranger grf scam gbm mgcv MASS PresenceAbsence DescTools \
+    DBI DescTools MASS PresenceAbsence RSQLite \
     argparse auk \
     car \
     digest \
+    exactextractr \
     fields \
-    gbm \
+    gbm grf \
+    mgcv \
     pryr \
-    smoothr \
+    ranger readr \
+    scam smoothr \
     units uuid \
   && installGithub.r cornelllabofornithology/ebirdst cornelllabofornithology/auk tomauer/fastRfuncs
 
