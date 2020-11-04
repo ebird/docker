@@ -41,7 +41,8 @@ RUN apt-get update \
   && rm -rf gdal-summarize/
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
-RUN install.r \
+RUN  r -e 'install.packages(c("rgdal", "sf"), repos = "https://cloud.r-project.org", type = "source")' \
+  && install.r \
     RandomFields \
     RNetCDF \
     countrycode \
@@ -57,10 +58,8 @@ RUN install.r \
     proj4 \
     raster \
     rasterVis \
-    rgdal \
     rgeos \
     rnaturalearth rnaturalearthdata \
-    sf \
     sp \
     stars \
     spacetime \

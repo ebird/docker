@@ -31,7 +31,6 @@ RUN install.r \
     cornelllabofornithology/auk \
     cornelllabofornithology/ebirdst \
     tomauer/fastRfuncs
-  
 
 WORKDIR /home/docker/
 
