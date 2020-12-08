@@ -41,7 +41,7 @@ RUN apt-get update \
   && rm -rf gdal-summarize/
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
-RUN  r -e 'install.packages(c("rgdal", "sf"), repos = "https://cloud.r-project.org", type = "source")' \
+RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom"), repos = "https://cloud.r-project.org", type = "source")' \
   && install.r \
     RandomFields \
     RNetCDF \
@@ -52,7 +52,6 @@ RUN  r -e 'install.packages(c("rgdal", "sf"), repos = "https://cloud.r-project.o
     gstat \
     hdf5r \
     janitor \
-    lwgeom \
     mapproj \
     ncdf4 \
     proj4 \
