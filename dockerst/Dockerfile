@@ -23,7 +23,7 @@ RUN install.r \
     fields \
     gbm grf \
     mgcv \
-    pryr \
+    pryr prioritizr \
     ranger readr \
     scam smoothr \
     units uuid \
