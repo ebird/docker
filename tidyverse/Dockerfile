@@ -57,6 +57,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   && install.r \
     tidyverse \
     data.table \
+    geofacet \
     plyr \
     here \
     foreach doParallel \
