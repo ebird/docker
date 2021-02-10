@@ -40,6 +40,14 @@ RUN apt-get update \
   && mv gdal-summarize/gdal-summarize.py /usr/bin/ \
   && rm -rf gdal-summarize/
   
+# tippecanoe for map tiles
+RUN git clone https://github.com/mapbox/tippecanoe.git \
+  && cd tippecanoe \
+  && make -j \
+  && make install \
+  && cd .. \
+  && rm -rf tippecanoe
+  
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
 RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom"), repos = "https://cloud.r-project.org", type = "source")' \
   && install.r \
