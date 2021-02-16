@@ -80,6 +80,9 @@ RUN installGithub.r ropensci/rnaturalearthhires
 
 # fix proj issue on singularity  
 RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron
+
+# get things working on bridges2
+RUN mkdir /jet && mkdir /ocean
   
 WORKDIR /home/docker/
 
