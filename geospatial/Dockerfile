@@ -61,7 +61,7 @@ RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom"), repos = "https://cloud.r
     hdf5r \
     janitor \
     mapproj \
-    ncdf4 \
+    ncdf4 ncmeta tidync RNetCDF \
     proj4 \
     raster \
     rasterVis \
