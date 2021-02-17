@@ -29,8 +29,7 @@ RUN install.r \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
-    cornelllabofornithology/ebirdst \
-    tomauer/fastRfuncs
+    cornelllabofornithology/ebirdst@dev_erd2019
 
 WORKDIR /home/docker/
 
