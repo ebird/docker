@@ -13,6 +13,12 @@ RUN apt-get update -y \
     imagemagick \
     rsync
 
+# ImageMagick default policy we were getting was extremely restrictive
+# (Memory: 256MiB, Disk: 1GiB) which basically made it useless. We don't need
+# to impose any system-wide restrictions like that so just remove policy and
+# use ImageMagick defaults/commandline values.
+RUN rm -f /etc/ImageMagick-6/policy.xml
+
 # R packages needed
 RUN install.r \
     DBI DescTools MASS PresenceAbsence RSQLite \
@@ -30,8 +36,7 @@ RUN install.r \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
-    cornelllabofornithology/ebirdst \
-    tomauer/fastRfuncs
+    cornelllabofornithology/ebirdst@dev_erd2019
 
 WORKDIR /home/docker/
 
