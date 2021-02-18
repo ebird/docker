@@ -60,6 +60,7 @@ RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom"), repos = "https://cloud.r
     gstat \
     hdf5r \
     janitor \
+    landscapemetrics \
     mapproj \
     ncdf4 ncmeta tidync RNetCDF \
     proj4 \

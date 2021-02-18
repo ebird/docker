@@ -22,10 +22,11 @@ RUN install.r \
     exactextractr \
     fields \
     gbm grf \
+    lutz \
     mgcv \
     pryr prioritizr \
     ranger readr \
-    scam smoothr \
+    scam smoothr suncalc \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
