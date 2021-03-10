@@ -10,7 +10,7 @@ RUN apt-get update -y \
     awscli \
     expect \
     ffmpeg \
-    imagemagick \
+    imagemagick libmagick++-dev \
     rsync
 
 # ImageMagick default policy we were getting was extremely restrictive
