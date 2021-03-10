@@ -36,7 +36,8 @@ RUN install.r \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
-    cornelllabofornithology/ebirdst@dev_erd2019
+    cornelllabofornithology/ebirdst@dev_erd2019 \
+    walkerke/mapboxapi
 
 WORKDIR /home/docker/
 
