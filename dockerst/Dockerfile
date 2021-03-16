@@ -26,7 +26,7 @@ RUN install.r \
     car \
     digest \
     exactextractr \
-    fields \
+    fastshap fields \
     gbm grf \
     lutz \
     mgcv \
