@@ -64,6 +64,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     remotes \
     RSQLite \
     tictoc \
+    toJSON \
     RColorBrewer \
     viridis
   
