@@ -58,13 +58,13 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     tidyverse \
     data.table \
     geofacet \
+    jsonlite \
     plyr \
     here \
     foreach doParallel \
     remotes \
     RSQLite \
     tictoc \
-    toJSON \
     RColorBrewer \
     viridis
   
