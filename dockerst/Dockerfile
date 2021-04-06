@@ -28,7 +28,7 @@ RUN install.r \
     exactextractr \
     fastshap fields \
     gbm grf \
-    lutz \
+    landscapemetrics lutz \
     mgcv \
     pryr prioritizr \
     ranger readr \
