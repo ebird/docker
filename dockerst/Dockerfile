@@ -38,6 +38,9 @@ RUN install.r \
     cornelllabofornithology/auk \
     cornelllabofornithology/ebirdst@dev_erd2019 \
     walkerke/mapboxapi
+    
+# Python packages
+RUN python3 -m pip install matplotlib
 
 WORKDIR /home/docker/
 
