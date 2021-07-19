@@ -50,7 +50,7 @@ jobs:
       - name: Build and push ebirdst image
         uses: docker/build-push-action@v2
         with:
-          context: ./ebirdst
-          file: ./ebirdst/Dockerfile
+          context: ./dockerst
+          file: ./dockerst/Dockerfile
           push: true
-          tags: mstrimas/ebirdst:latest
+          tags: mstrimas/dockerst:latest
