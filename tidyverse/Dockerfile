@@ -59,11 +59,12 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     data.table \
     geofacet \
     jsonlite \
+    keyring \
     plyr \
     here \
     foreach doParallel \
     remotes \
-    RSQLite \
+    RSQLite PostgreSQL\
     tictoc \
     RColorBrewer \
     viridis
