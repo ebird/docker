@@ -24,8 +24,8 @@ RUN python3 -m pip install matplotlib
 
 # duckdb
 RUN wget https://github.com/duckdb/duckdb/releases/download/v0.2.7/duckdb_cli-linux-amd64.zip \
-    unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
-    rm duckdb_cli-linux-amd64.zip
+    && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
+    && rm duckdb_cli-linux-amd64.zip
 
 # R packages needed
 RUN install.r \
