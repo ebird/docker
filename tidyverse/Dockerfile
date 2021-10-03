@@ -65,7 +65,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     foreach doParallel \
     remotes \
     RSQLite PostgreSQL duckdb arrow \
-    tictoc \
+    tictoc bench \
     RColorBrewer \
     viridis
   
