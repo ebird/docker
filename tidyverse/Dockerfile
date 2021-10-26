@@ -64,11 +64,17 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     here \
     foreach doParallel \
     remotes \
-    RSQLite PostgreSQL duckdb arrow \
+    RSQLite PostgreSQL arrow \
     tictoc bench \
     RColorBrewer \
     viridis
-  
+
+# duckdb, versions on cli and r must match
+RUN wget https://github.com/duckdb/duckdb/releases/download/v0.3.0/duckdb_cli-linux-amd64.zip \
+  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
+  && rm duckdb_cli-linux-amd64.zip \
+  && r -e 'remotes::install_version("duckdb", version = "0.3.0", repos = "https://cloud.r-project.org")'
+    
 COPY start.sh /start.sh
 WORKDIR /home/docker/
 
