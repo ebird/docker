@@ -18,6 +18,7 @@ RUN apt-get update \
     ed \
     less \
     locales \
+    nano \
     vim-tiny \
     ca-certificates
 
@@ -70,7 +71,12 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     viridis
 
 # duckdb, versions on cli and r must match
-RUN wget https://github.com/duckdb/duckdb/releases/download/v0.3.0/duckdb_cli-linux-amd64.zip \
+# fix to install libssl1.0.0
+RUN cp /etc/apt/sources.list /etc/apt/sources.list_bu \
+  && echo 'deb http://security.ubuntu.com/ubuntu xenial-security main' >> /etc/apt/sources.list \
+  && apt-get update -qq && apt-get -y --no-install-recommends install libssl1.0.0 \
+  && mv /etc/apt/sources.list_bu /etc/apt/sources.list \
+  && wget https://github.com/duckdb/duckdb/releases/download/v0.3.0/duckdb_cli-linux-amd64.zip \
   && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
   && rm duckdb_cli-linux-amd64.zip \
   && r -e 'remotes::install_version("duckdb", version = "0.3.0", repos = "https://cloud.r-project.org")'
