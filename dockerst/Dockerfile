@@ -37,7 +37,7 @@ RUN install.r \
     mgcv \
     pryr prioritizr \
     ranger readr \
-    scam smoothr suncalc \
+    scam sessioninfo smoothr suncalc \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
