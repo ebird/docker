@@ -31,7 +31,7 @@ RUN install.r \
     car \
     digest \
     exactextractr \
-    fastshap fields \
+    fields \
     gbm grf \
     landscapemetrics lutz \
     mgcv \
@@ -42,7 +42,8 @@ RUN install.r \
   && installGithub.r \
     cornelllabofornithology/auk \
     cornelllabofornithology/ebirdst@dev_erd2019 \
-    walkerke/mapboxapi
+    walkerke/mapboxapi \
+    bgreenwell/fastshap
 
 WORKDIR /home/docker/
 
