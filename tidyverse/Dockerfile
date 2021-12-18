@@ -68,7 +68,8 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     RSQLite PostgreSQL arrow \
     tictoc bench \
     RColorBrewer \
-    viridis
+    viridis \
+    patchwork
 
 # duckdb, versions on cli and r must match
 # fix to install libssl1.0.0
