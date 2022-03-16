@@ -41,7 +41,7 @@ RUN install.r \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
-    cornelllabofornithology/ebirdst@dev_erd2019 \
+    cornelllabofornithology/ebirdst@dev_erd2021 \
     walkerke/mapboxapi \
     bgreenwell/fastshap
 

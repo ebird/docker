@@ -47,7 +47,7 @@ jobs:
           tags: mstrimas/geospatial:latest
           
       # ebirdst
-      - name: Build and push ebirdst image
+      - name: Build and push dockerst image
         uses: docker/build-push-action@v2
         with:
           context: ./dockerst
