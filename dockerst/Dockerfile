@@ -35,7 +35,7 @@ RUN install.r \
     gbm grf \
     landscapemetrics lutz \
     mgcv \
-    pryr prioritizr \
+    precrec pryr prioritizr \
     ranger readr \
     scam sessioninfo smoothr suncalc \
     units uuid \
