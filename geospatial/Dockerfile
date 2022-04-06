@@ -26,7 +26,7 @@ RUN apt-get update \
     libsqlite3-dev \
     libssl-dev \
     libudunits2-dev \
-    netcdf-bin \
+    netcdf-bin nco \
     postgis \
     protobuf-compiler \
     sqlite3 \
