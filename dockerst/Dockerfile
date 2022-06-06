@@ -35,7 +35,7 @@ RUN install.r \
     fields \
     gbm grf \
     landscapemetrics lutz \
-    mgcv \
+    mccf1 mgcv \
     precrec pryr prioritizr \
     ranger readr \
     scam sessioninfo smoothr suncalc \
