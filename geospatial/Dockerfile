@@ -49,7 +49,7 @@ RUN git clone https://github.com/mapbox/tippecanoe.git \
   && rm -rf tippecanoe
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
-RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom"), repos = "https://cloud.r-project.org", type = "source")' \
+RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
   && install.r \
     RandomFields \
     RNetCDF \
@@ -75,7 +75,7 @@ RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom"), repos = "https://cloud.r
     spdep \
     geoR \
     geosphere \
-  && installGithub.r rspatial/terra rspatial/raster ropensci/rnaturalearthhires
+  && installGithub.r ropensci/rnaturalearthhires
 
 # fix proj issue on singularity  
 RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron
