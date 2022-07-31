@@ -81,7 +81,7 @@ RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom", "raster", "terra"), repos
 RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron
 
 # get things working on bridges2
-RUN mkdir /ocean && mkdir /anvil && /apps
+RUN mkdir /ocean && mkdir /anvil && mkdir /apps
   
 WORKDIR /home/docker/
 
