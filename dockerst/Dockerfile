@@ -34,6 +34,7 @@ RUN install.r \
     exactextractr \
     fields \
     gbm grf \
+    h3jsr \
     landscapemetrics lutz \
     mccf1 mgcv \
     precrec pryr prioritizr \
@@ -44,7 +45,8 @@ RUN install.r \
     cornelllabofornithology/auk \
     cornelllabofornithology/ebirdst@dev_erd2021 \
     walkerke/mapboxapi \
-    bgreenwell/fastshap
+    bgreenwell/fastshap \
+    crazycapivara/h3-r
 
 WORKDIR /home/docker/
 
