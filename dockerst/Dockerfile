@@ -23,7 +23,7 @@ RUN rm -f /etc/ImageMagick-6/policy.xml
 RUN python3 -m pip install matplotlib \
   && python3 -m pip install pandas \
   && python3 -m pip install pyarrow \
-  && python3 -m pip install duckdb==0.3.0
+  && python3 -m pip install duckdb==0.5.0
   
 # R packages needed
 RUN install.r \
