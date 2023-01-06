@@ -23,7 +23,14 @@ RUN rm -f /etc/ImageMagick-6/policy.xml
 RUN python3 -m pip install matplotlib \
   && python3 -m pip install pandas \
   && python3 -m pip install pyarrow \
-  && python3 -m pip install duckdb==0.5.0
+  && python3 -m pip install duckdb==0.5.0 \
+  && python3 -m pip install click \
+  && python3 -m pip install PyYAML \
+  && python3 -m pip install ruamel.base \
+  && python3 -m pip install scikit_learn \
+  && python3 -m pip install scipy \
+  && python3 -m pip install torch \
+  && python3 -m pip install tqdm
   
 # R packages needed
 RUN install.r \
