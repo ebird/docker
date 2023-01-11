@@ -43,10 +43,11 @@ RUN install.r \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
-    cornelllabofornithology/ebirdst@dev_erd2021 \
+    cornelllabofornithology/ebirdst \
     walkerke/mapboxapi \
     bgreenwell/fastshap \
-    crazycapivara/h3-r
+    crazycapivara/h3-r \
+    RfastOfficial/Rfast
 
 WORKDIR /home/docker/
 
