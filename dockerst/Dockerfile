@@ -53,7 +53,7 @@ RUN install.r \
     walkerke/mapboxapi \
     bgreenwell/fastshap \
     crazycapivara/h3-r \
-    RfastOfficial/Rfast
+    ebird/fastmedian
 
 WORKDIR /home/docker/
 
