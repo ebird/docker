@@ -35,10 +35,7 @@ RUN apt-get update \
     
 # gdal binaries, including python bindings
 RUN apt-get update \
-  && apt-get install -y gdal-bin python3-dev python3-pip python3-numpy python3-gdal \
-  && git clone https://github.com/mstrimas/gdal-summarize.git \
-  && mv gdal-summarize/gdal-summarize.py /usr/bin/ \
-  && rm -rf gdal-summarize/
+  && apt-get install -y gdal-bin python3-dev python3-pip python3-numpy python3-gdal
   
 # tippecanoe for map tiles
 RUN git clone https://github.com/mapbox/tippecanoe.git \
