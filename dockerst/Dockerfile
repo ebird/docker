@@ -45,16 +45,19 @@ RUN install.r \
     mccf1 mgcv \
     precrec pryr prioritizr \
     ranger readr \
-    scam sessioninfo smoothr suncalc \
+    scam sessioninfo smoothr \
     units uuid \
   && installGithub.r \
     cornelllabofornithology/auk \
-    cornelllabofornithology/ebirdst \
+    ebird/ebirdst \
     walkerke/mapboxapi \
     bgreenwell/fastshap \
     crazycapivara/h3-r \
-    ebird/fastmedian
-
+    ebird/fastmedian \
+    # temporary bug fix, change back to CRAN install if package maintainers
+    # accept my PR https://github.com/datastorm-open/suncalc/issues/2
+    mstrimas/suncalc
+    
 WORKDIR /home/docker/
 
 CMD ["/start.sh"]
