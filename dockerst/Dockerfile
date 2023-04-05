@@ -57,7 +57,11 @@ RUN install.r \
     # temporary bug fix, change back to CRAN install if package maintainers
     # accept my PR https://github.com/datastorm-open/suncalc/issues/2
     mstrimas/suncalc
-    
+
+# install jags
+RUN apt-get update -y && apt-get install -y jags \
+  && install.r rjags
+  
 WORKDIR /home/docker/
 
 CMD ["/start.sh"]
