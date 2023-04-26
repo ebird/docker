@@ -64,7 +64,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     plyr \
     here \
     foreach doParallel \
-    remotes \
+    remotes pak \
     RSQLite PostgreSQL arrow \
     tictoc bench \
     RColorBrewer viridis pals scico hexbin patchwork
