@@ -72,7 +72,9 @@ RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom", "raster", "terra"), repos
     spdep \
     geoR \
     geosphere \
-  && installGithub.r ropensci/rnaturalearthhires
+  && installGithub.r \
+    ropensci/rnaturalearthhires \ 
+    rspatial/luna
 
 # fix proj issue on singularity  
 RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron
