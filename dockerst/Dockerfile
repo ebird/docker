@@ -34,7 +34,7 @@ RUN python3 -m pip install matplotlib \
 # R packages needed
 RUN install.r \
     DBI DescTools MASS PresenceAbsence RSQLite \
-    argparse auk \
+    argparse \
     car \
     digest \
     exactextractr \
@@ -43,6 +43,7 @@ RUN install.r \
     h3jsr \
     landscapemetrics lutz \
     mccf1 mgcv \
+    oce \
     precrec pryr prioritizr \
     ranger readr \
     scam sessioninfo smoothr \
