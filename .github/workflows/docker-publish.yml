@@ -1,3 +1,6 @@
+# github actions versions need updating periodically
+# for the latest versions see: https://github.com/docker/build-push-action
+
 name: Docker
 
 on:
@@ -15,22 +18,22 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
     
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
         
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # tidyverse
       - name: Build and push tidyverse image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./tidyverse
           file: ./tidyverse/Dockerfile
@@ -39,7 +42,7 @@ jobs:
           
       # geospatial
       - name: Build and push geospatial image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./geospatial
           file: ./geospatial/Dockerfile
@@ -48,7 +51,7 @@ jobs:
           
       # dockerst
       - name: Build and push dockerst image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./dockerst
           file: ./dockerst/Dockerfile
