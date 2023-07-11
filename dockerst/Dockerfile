@@ -39,7 +39,7 @@ RUN install.r \
     digest \
     exactextractr \
     fields \
-    gbm grf \
+    gbm googlesheets4 grf \
     h3jsr \
     landscapemetrics lutz \
     mccf1 mgcv \
