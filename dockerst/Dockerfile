@@ -45,7 +45,7 @@ RUN install.r \
     mccf1 mgcv \
     oce \
     precrec pryr prioritizr \
-    ranger readr \
+    readr \
     scam sessioninfo smoothr \
     units uuid \
   && installGithub.r \
@@ -54,7 +54,8 @@ RUN install.r \
     walkerke/mapboxapi \
     bgreenwell/fastshap \
     crazycapivara/h3-r \
-    ebird/fastmedian \
+    imbs-hl/ranger \
+    ebird/fastmedian \ 
     # temporary bug fix, change back to CRAN install if package maintainers
     # accept my PR https://github.com/datastorm-open/suncalc/issues/2
     mstrimas/suncalc
