@@ -23,7 +23,6 @@ RUN rm -f /etc/ImageMagick-6/policy.xml
 RUN python3 -m pip install matplotlib \
   && python3 -m pip install pandas \
   && python3 -m pip install pyarrow \
-  && python3 -m pip install duckdb==0.8.0 \
   && python3 -m pip install click \
   && python3 -m pip install PyYAML \
   && python3 -m pip install scikit_learn \
@@ -56,9 +55,21 @@ RUN install.r \
     crazycapivara/h3-r \
     imbs-hl/ranger \
     ebird/fastmedian \ 
-    # temporary bug fix, change back to CRAN install if package maintainers
-    # accept my PR https://github.com/datastorm-open/suncalc/issues/2
-    mstrimas/suncalc
+    # temporary bug fix, change back to CRAN once new version is on CRAN
+    datastorm-open/suncalc
+    
+# install duckdb, versions on cli, r, and python must match
+ENV DUCKDB_VERSION 0.9.2
+# must manually install libssl1.0.0
+RUN cp /etc/apt/sources.list /etc/apt/sources.list_bu \
+  && echo 'deb http://security.ubuntu.com/ubuntu xenial-security main' >> /etc/apt/sources.list \
+  && apt-get update -qq && apt-get -y --no-install-recommends install libssl1.0.0 \
+  && mv /etc/apt/sources.list_bu /etc/apt/sources.list \
+  && wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
+  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
+  && rm duckdb_cli-linux-amd64.zip \
+  && r -e 'remotes::install_version("duckdb", version = "${DUCKDB_VERSION}", repos = "https://cloud.r-project.org")' \
+  && python3 -m pip install duckdb==${DUCKDB_VERSION}
 
 # install jags
 RUN apt-get update -y && apt-get install -y jags \
