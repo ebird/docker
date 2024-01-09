@@ -64,6 +64,7 @@ ENV DUCKDB_VERSION 0.9.2
 RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
   && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
   && rm duckdb_cli-linux-amd64.zip \
+  && duckdb :memory: "INSTALL sqlite;" \
   && r -e 'remotes::install_version("duckdb", version = "0.9.2", repos = "https://cloud.r-project.org")' \
   && python3 -m pip install duckdb==${DUCKDB_VERSION}
 
