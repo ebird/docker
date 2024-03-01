@@ -25,7 +25,6 @@ RUN python3 -m pip install \
   matplotlib \
   pandas \
   pyarrow \
-  pyspark \
   PyYAML \
   scikit_learn \
   scipy \
