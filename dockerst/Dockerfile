@@ -20,16 +20,15 @@ RUN apt-get update -y \
 RUN rm -f /etc/ImageMagick-6/policy.xml
 
 # Python packages
-RUN python3 -m pip install \
-  click \
-  matplotlib \
-  pandas \
-  pyarrow \
-  PyYAML \
-  scikit_learn \
-  scipy \
-  torch \
-  tqdm
+RUN python3 -m pip install matplotlib \
+  && python3 -m pip install pandas \
+  && python3 -m pip install pyarrow \
+  && python3 -m pip install click \
+  && python3 -m pip install PyYAML \
+  && python3 -m pip install scikit_learn \
+  && python3 -m pip install scipy \
+  && python3 -m pip install torch \
+  && python3 -m pip install tqdm
   
 # R packages needed
 RUN install.r \
