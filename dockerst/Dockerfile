@@ -48,6 +48,7 @@ RUN install.r \
     readr \
     scam sessioninfo smoothr \
     units uuid \
+    yardstick \
   && installGithub.r \
     cornelllabofornithology/auk \
     ebird/ebirdst \
