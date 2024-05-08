@@ -1,4 +1,4 @@
-FROM rstudio/r-base:4.4-focal
+FROM rstudio/r-base:4.4-noble
 
 MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
