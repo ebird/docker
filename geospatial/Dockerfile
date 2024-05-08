@@ -6,8 +6,6 @@ LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
 RUN apt-get update \
-  # connect to ubuntugis/ubuntugis-unstable to get latest versions of spatial libraries
-  && add-apt-repository ppa:ubuntugis/ubuntugis-unstable -y \
   && apt-get install -y \
     lbzip2 \
     libfftw3-dev \
