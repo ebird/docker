@@ -9,7 +9,7 @@ LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 RUN useradd docker \
   && mkdir /home/docker \
   && chown docker:docker /home/docker \
-  && addgroup docker staff
+  && usermod -G staff docker
   
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -46,9 +46,9 @@ RUN R --slave -e 'install.packages(c("littler", "docopt"), repos = "https://clou
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
   libcairo2-dev \
-  libsqlite-dev \
+  libsqlite3-dev \
   libmariadbd-dev \
-  libmariadbclient-dev \
+  libmariadb-dev-compat \
   libpq-dev \
   libssh2-1-dev \
   unixodbc-dev \
