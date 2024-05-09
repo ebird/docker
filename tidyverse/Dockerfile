@@ -53,21 +53,25 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   unixodbc-dev \
   libsasl2-dev \
   libcurl4-openssl-dev \
-  libssl-dev \
-  && install.r \
-    tidyverse \
-    data.table \
-    geofacet \
-    jsonlite \
-    keyring \
-    plyr \
-    here \
-    foreach doParallel \
-    remotes pak \
-    RSQLite PostgreSQL arrow \
-    tictoc bench \
-    RColorBrewer viridis pals scico hexbin patchwork
-    
+  libssl-dev
+
+RUN install.r \
+  tidyverse \
+  data.table \
+  geofacet \
+  jsonlite \
+  keyring \
+  plyr \
+  here \
+  foreach doParallel \
+  remotes pak \
+  RSQLite PostgreSQL arrow \
+  tictoc bench \
+  RColorBrewer viridis pals scico hexbin patchwork
+
+# install development version of stringi to avoid libicui version mismatch
+RUN installGithub.r gagolews/stringi
+
 COPY start.sh /start.sh
 WORKDIR /home/docker/
 
