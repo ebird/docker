@@ -1,7 +1,6 @@
 # add r and python geospatial tools
 FROM mstrimas/tidyverse
 
-MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile

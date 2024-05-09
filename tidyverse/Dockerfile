@@ -1,6 +1,5 @@
 FROM rstudio/r-base:4.4-noble
 
-MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # set a default user, available via runtime flag `--user docker`
