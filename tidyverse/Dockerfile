@@ -65,10 +65,12 @@ RUN install.r \
   here \
   foreach doParallel \
   remotes pak \
-  RSQLite PostgreSQL arrow \
+  RSQLite PostgreSQL \
   tictoc bench \
   RColorBrewer viridis pals scico hexbin patchwork
 
+# install arrow, needs to be compiled from source
+RUN r -e 'options(repos = "https://cran.rstudio.com/"); Sys.setenv(LIBARROW_BINARY = TRUE); install.packages("arrow"", type = "source")'
 # install development version of stringi to avoid libicui version mismatch
 RUN installGithub.r gagolews/stringi
 
