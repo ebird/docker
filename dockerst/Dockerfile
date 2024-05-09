@@ -10,6 +10,11 @@ RUN apt-get update -y \
     ffmpeg \
     imagemagick libmagick++-dev \
     rsync
+    
+# aws cli, instructions from https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+  && unzip awscliv2.zip \
+  && ./aws/install
 
 # ImageMagick default policy we were getting was extremely restrictive
 # (Memory: 256MiB, Disk: 1GiB) which basically made it useless. We don't need
