@@ -67,7 +67,6 @@ RUN installGithub.r \
     bgreenwell/fastshap \
     crazycapivara/h3-r \
     imbs-hl/ranger \
-    ebird/fastmedian \ 
     # temporary bug fix, change back to CRAN once new version is on CRAN
     datastorm-open/suncalc
 
