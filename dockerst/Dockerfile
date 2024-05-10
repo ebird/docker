@@ -22,7 +22,6 @@ RUN rm -f /etc/ImageMagick-6/policy.xml
 #   See: https://packaging.python.org/en/latest/specifications/externally-managed-environments/
 RUN apt-get update -y \
   && apt-get install -y \
-    python3-arrow \
     python3-click \
     python3-matplotlib \
     python3-pandas \
@@ -39,6 +38,7 @@ RUN apt-get update -y \
 #   See: https://stackoverflow.com/a/76469774/68736
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN python3 -m pip install \
+    pyarrow \
     torch
 
 # R packages needed
