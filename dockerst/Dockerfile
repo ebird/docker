@@ -60,15 +60,17 @@ RUN install.r \
     units uuid \
     yardstick
 
-RUN installGithub.r \
-    cornelllabofornithology/auk \
-    ebird/ebirdst \
-    walkerke/mapboxapi \
-    bgreenwell/fastshap \
-    crazycapivara/h3-r \
-    imbs-hl/ranger \
-    # temporary bug fix, change back to CRAN once new version is on CRAN
-    datastorm-open/suncalc
+# mapboxapi dependencies protolite and magick need to be compiled to avoid shared library errors
+RUN r -e 'install.packages(c("protolite", "magick"), repos = "https://cloud.r-project.org", type = "source")' \
+  && installGithub.r \
+      cornelllabofornithology/auk \
+      ebird/ebirdst \
+      walkerke/mapboxapi \
+      bgreenwell/fastshap \
+      crazycapivara/h3-r \
+      imbs-hl/ranger \
+      # temporary bug fix, change back to CRAN once new version is on CRAN
+      datastorm-open/suncalc
 
 # Install AWS CLI v2
 RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
