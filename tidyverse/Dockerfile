@@ -1,6 +1,5 @@
-FROM rstudio/r-base:4.4-focal
+FROM rstudio/r-base:4.4-noble
 
-MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # set a default user, available via runtime flag `--user docker`
@@ -9,7 +8,7 @@ LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 RUN useradd docker \
   && mkdir /home/docker \
   && chown docker:docker /home/docker \
-  && addgroup docker staff
+  && usermod -G staff docker
   
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -46,29 +45,36 @@ RUN R --slave -e 'install.packages(c("littler", "docopt"), repos = "https://clou
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
   libcairo2-dev \
-  libsqlite-dev \
+  libsqlite3-dev \
   libmariadbd-dev \
-  libmariadbclient-dev \
+  libmariadb-dev-compat \
   libpq-dev \
   libssh2-1-dev \
   unixodbc-dev \
   libsasl2-dev \
   libcurl4-openssl-dev \
-  libssl-dev \
-  && install.r \
-    tidyverse \
-    data.table \
-    geofacet \
-    jsonlite \
-    keyring \
-    plyr \
-    here \
-    foreach doParallel \
-    remotes pak \
-    RSQLite PostgreSQL arrow \
-    tictoc bench \
-    RColorBrewer viridis pals scico hexbin patchwork
-    
+  libssl-dev
+
+RUN install.r \
+  tidyverse \
+  data.table \
+  geofacet \
+  jsonlite \
+  keyring \
+  plyr \
+  here \
+  foreach doParallel \
+  remotes pak \
+  RSQLite PostgreSQL \
+  tictoc bench \
+  RColorBrewer viridis pals scico hexbin patchwork
+
+# install arrow, needs to be compiled from source
+RUN r -e 'Sys.setenv(LIBARROW_BINARY = TRUE); install.packages("arrow", repos = "https://cran.rstudio.com/", type = "source")'
+
+# install development version of stringi to avoid libicui version mismatch
+RUN installGithub.r gagolews/stringi
+
 COPY start.sh /start.sh
 WORKDIR /home/docker/
 

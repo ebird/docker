@@ -1,13 +1,10 @@
 # add r and python geospatial tools
 FROM mstrimas/tidyverse
 
-MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
 RUN apt-get update \
-  # connect to ubuntugis/ubuntugis-unstable to get latest versions of spatial libraries
-  && add-apt-repository ppa:ubuntugis/ubuntugis-unstable -y \
   && apt-get install -y \
     lbzip2 \
     libfftw3-dev \
@@ -46,32 +43,21 @@ RUN git clone https://github.com/mapbox/tippecanoe.git \
   && rm -rf tippecanoe
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
-RUN  r -e 'install.packages(c("rgdal", "sf", "lwgeom", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
+RUN  r -e 'install.packages(c("rgdal", "s2", "sf", "lwgeom", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
   && install.r \
-    RandomFields \
     RNetCDF \
     countrycode \
     classInt \
     fasterize \
-    geofacet \
-    gstat \
     hdf5r \
     janitor \
     landscapemetrics \
     mapproj \
     ncdf4 ncmeta tidync RNetCDF \
     proj4 \
-    raster \
-    rasterVis \
     rgeos \
     rnaturalearth rnaturalearthdata \
-    sp \
     stars \
-    spacetime \
-    spatstat \
-    spdep \
-    geoR \
-    geosphere \
   && installGithub.r \
     ropensci/rnaturalearthhires \ 
     rspatial/luna

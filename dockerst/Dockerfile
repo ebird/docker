@@ -1,13 +1,11 @@
 # docker image for ebird status and trends
 FROM mstrimas/geospatial
 
-MAINTAINER "Matt Strimas-Mackey" mes335@cornell.edu
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # system tools needed
 RUN apt-get update -y \
   && apt-get install -y \
-    awscli \
     expect \
     ffmpeg \
     imagemagick libmagick++-dev \
@@ -20,16 +18,29 @@ RUN apt-get update -y \
 RUN rm -f /etc/ImageMagick-6/policy.xml
 
 # Python packages
-RUN python3 -m pip install matplotlib \
-  && python3 -m pip install pandas \
-  && python3 -m pip install pyarrow \
-  && python3 -m pip install click \
-  && python3 -m pip install PyYAML \
-  && python3 -m pip install scikit_learn \
-  && python3 -m pip install scipy \
-  && python3 -m pip install torch \
-  && python3 -m pip install tqdm
-  
+#   We attempt to install as many as possible via apt-get for consistency.
+#   See: https://packaging.python.org/en/latest/specifications/externally-managed-environments/
+RUN apt-get update -y \
+  && apt-get install -y \
+    python3-click \
+    python3-matplotlib \
+    python3-pandas \
+    python3-scipy \
+    python3-sklearn \
+    python3-tqdm \
+    python3-yaml
+
+RUN apt-get update -y \
+  && apt-get install -y \
+    nvidia-cuda-toolkit
+
+# For ones not available via apt-get, we install via pip (ex: pytorch)
+#   See: https://stackoverflow.com/a/76469774/68736
+ENV PIP_BREAK_SYSTEM_PACKAGES 1
+RUN python3 -m pip install \
+    pyarrow \
+    torch
+
 # R packages needed
 RUN install.r \
     DBI DescTools MASS PresenceAbsence RSQLite \
@@ -47,26 +58,34 @@ RUN install.r \
     readr \
     scam sessioninfo smoothr \
     units uuid \
-    yardstick \
+    yardstick
+
+# mapboxapi dependencies protolite and magick need to be compiled to avoid shared library errors
+RUN r -e 'install.packages(c("protolite", "magick"), repos = "https://cloud.r-project.org", type = "source")' \
   && installGithub.r \
-    cornelllabofornithology/auk \
-    ebird/ebirdst \
-    walkerke/mapboxapi \
-    bgreenwell/fastshap \
-    crazycapivara/h3-r \
-    imbs-hl/ranger \
-    ebird/fastmedian \ 
-    # temporary bug fix, change back to CRAN once new version is on CRAN
-    datastorm-open/suncalc
-    
+      cornelllabofornithology/auk \
+      ebird/ebirdst \
+      walkerke/mapboxapi \
+      bgreenwell/fastshap \
+      crazycapivara/h3-r \
+      imbs-hl/ranger \
+      # temporary bug fix, change back to CRAN once new version is on CRAN
+      datastorm-open/suncalc
+
+# Install AWS CLI v2
+RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
+  && unzip awscli-exe-linux-x86_64.zip \
+  && ./aws/install \
+  && rm -rf aws awscli-exe-linux-x86_64.zip
+
 # install duckdb, versions on cli, r, and python must match
-ENV DUCKDB_VERSION 0.9.2
+ENV DUCKDB_VERSION 0.10.2
 # must manually install libssl1.0.0
 RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
   && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
   && rm duckdb_cli-linux-amd64.zip \
   && duckdb :memory: "INSTALL sqlite;" \
-  && r -e 'remotes::install_version("duckdb", version = "0.9.2", repos = "https://cloud.r-project.org")' \
+  && r -e 'remotes::install_version("duckdb", version = "'${DUCKDB_VERSION}'", repos = "https://cloud.r-project.org")' \
   && python3 -m pip install duckdb==${DUCKDB_VERSION}
 
 # install jags
