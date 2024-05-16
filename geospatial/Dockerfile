@@ -65,6 +65,9 @@ RUN  r -e 'install.packages(c("rgdal", "s2", "sf", "lwgeom", "raster", "terra"),
 # fix proj issue on singularity  
 RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron
 
+# prevent creation of sidecar files by gdal
+ENV GDAL_PAM_ENABLED=NO
+
 # get things working on bridges2
 RUN mkdir /ocean && mkdir /jet && mkdir /anvil && mkdir /apps
   
