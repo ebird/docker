@@ -70,8 +70,12 @@ RUN r -e 'install.packages(c("protolite", "magick"), repos = "https://cloud.r-pr
       crazycapivara/h3-r \
       # temporary bug fix, change back to CRAN once new version is on CRAN
       datastorm-open/suncalc \
-      # ranger has a bug in the C++ sampling code that github version fixes
-      imbs-hl/ranger
+      # ranger has a bug in the C++ sampling code that this branch fixes
+      # if this PR is merged, switch back to using the official repo
+      # bug report: https://github.com/imbs-hl/ranger/issues/733
+      # PR: https://github.com/imbs-hl/ranger/pull/734
+      # imbs-hl/ranger \
+      sligocki/ranger@sample_skip_bug
 
 # Install AWS CLI v2
 RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
