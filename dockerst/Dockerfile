@@ -28,7 +28,13 @@ RUN apt-get update -y \
     python3-scipy \
     python3-sklearn \
     python3-tqdm \
-    python3-yaml
+    python3-yaml \
+    python3-gdal \
+    python3-rasterio \
+    python3-xarray \
+    python3-rioxarray \
+    python3-dask \
+    python3-zarr
 
 RUN apt-get update -y \
   && apt-get install -y \
@@ -39,7 +45,8 @@ RUN apt-get update -y \
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN python3 -m pip install \
     pyarrow \
-    torch
+    torch \
+    ndpyramid
 
 # R packages needed
 RUN install.r \
@@ -96,7 +103,7 @@ RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/d
 # install jags
 RUN apt-get update -y && apt-get install -y jags \
   && install.r rjags
-  
+
 WORKDIR /home/docker/
 
 CMD ["/start.sh"]
