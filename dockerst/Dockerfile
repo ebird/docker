@@ -51,11 +51,10 @@ RUN install.r \
     fields \
     gbm googlesheets4 grf \
     h3jsr \
-    landscapemetrics lutz \
+    lutz \
     mccf1 mgcv \
     oce \
-    precrec pryr prioritizr \
-    readr \
+    precrec pryr \
     scam sessioninfo smoothr \
     units uuid \
     yardstick
