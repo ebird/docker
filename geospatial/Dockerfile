@@ -45,22 +45,17 @@ RUN git clone https://github.com/mapbox/tippecanoe.git \
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
 RUN  r -e 'install.packages(c("rgdal", "s2", "sf", "lwgeom", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
   && install.r \
-    RNetCDF \
-    countrycode \
-    classInt \
     fasterize \
     hdf5r \
-    janitor \
     landscapemetrics \
     mapproj \
-    ncdf4 ncmeta tidync RNetCDF \
+    ncdf4 \
     proj4 \
     rgeos \
     rnaturalearth rnaturalearthdata \
     stars \
   && installGithub.r \
-    ropensci/rnaturalearthhires \ 
-    rspatial/luna
+    ropensci/rnaturalearthhires
 
 # fix proj issue on singularity  
 RUN echo 'PROJ_LIB=/usr/share/proj/' >> /usr/lib/R/etc/Renviron

@@ -46,8 +46,6 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
   libcairo2-dev \
   libsqlite3-dev \
-  libmariadbd-dev \
-  libmariadb-dev-compat \
   libpq-dev \
   libssh2-1-dev \
   unixodbc-dev \
@@ -58,14 +56,12 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
 RUN install.r \
   tidyverse \
   data.table \
-  geofacet \
   jsonlite \
-  keyring \
   plyr \
   here \
   foreach doParallel \
   remotes pak \
-  RSQLite PostgreSQL \
+  RSQLite \
   tictoc bench \
   RColorBrewer viridis pals scico hexbin patchwork
 
