@@ -48,7 +48,7 @@ RUN install.r \
     car \
     digest \
     exactextractr \
-    fields \
+    fda fields \
     gbm googlesheets4 grf \
     h3jsr \
     lutz \
