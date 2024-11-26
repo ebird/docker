@@ -39,6 +39,7 @@ RUN apt-get update -y \
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN python3 -m pip install \
     pyarrow \
+    tensorboard \
     torch
 
 # R packages needed
