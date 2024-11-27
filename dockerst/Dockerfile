@@ -5,6 +5,7 @@ LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
 # system tools needed
 RUN apt-get update -y \
+  && apt-get autoclean \
   && apt-get install -y \
     expect \
     ffmpeg \
@@ -42,7 +43,8 @@ RUN apt-get update -y \
 # For ones not available via apt-get, we install via pip (ex: pytorch)
 #   See: https://stackoverflow.com/a/76469774/68736
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
-RUN python3 -m pip install \
+RUN apt-get remove -y python3-zipp python3-contourpy python3-kiwisolver python3-typing-extensions \
+  && python3 -m pip install \
     ndpyramid \
     pyarrow \
     tensorboard \
