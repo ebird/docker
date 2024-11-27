@@ -23,17 +23,16 @@ RUN rm -f /etc/ImageMagick-6/policy.xml
 RUN apt-get update -y \
   && apt-get install -y \
     python3-click \
+    python3-dask \
     python3-matplotlib \
     python3-pandas \
+    python3-rasterio \
+    python3-rioxarray \
     python3-scipy \
     python3-sklearn \
     python3-tqdm \
     python3-yaml \
-    python3-gdal \
-    python3-rasterio \
     python3-xarray \
-    python3-rioxarray \
-    python3-dask \
     python3-zarr
 
 RUN apt-get update -y \
@@ -44,9 +43,10 @@ RUN apt-get update -y \
 #   See: https://stackoverflow.com/a/76469774/68736
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN python3 -m pip install \
+    ndpyramid \
     pyarrow \
-    torch \
-    ndpyramid
+    tensorboard \
+    torch
 
 # R packages needed
 RUN install.r \
@@ -55,7 +55,7 @@ RUN install.r \
     car \
     digest \
     exactextractr \
-    fields \
+    fda fields \
     gbm googlesheets4 grf \
     h3jsr \
     lutz \
