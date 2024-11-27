@@ -23,12 +23,17 @@ RUN rm -f /etc/ImageMagick-6/policy.xml
 RUN apt-get update -y \
   && apt-get install -y \
     python3-click \
+    python3-dask \
     python3-matplotlib \
     python3-pandas \
+    python3-rasterio \
+    python3-rioxarray \
     python3-scipy \
     python3-sklearn \
     python3-tqdm \
-    python3-yaml
+    python3-yaml \
+    python3-xarray \
+    python3-zarr
 
 RUN apt-get update -y \
   && apt-get install -y \
@@ -38,6 +43,7 @@ RUN apt-get update -y \
 #   See: https://stackoverflow.com/a/76469774/68736
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN python3 -m pip install \
+    ndpyramid \
     pyarrow \
     tensorboard \
     torch
@@ -96,7 +102,7 @@ RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/d
 # install jags
 RUN apt-get update -y && apt-get install -y jags \
   && install.r rjags
-  
+
 WORKDIR /home/docker/
 
 CMD ["/start.sh"]
