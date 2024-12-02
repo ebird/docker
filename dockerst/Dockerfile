@@ -47,8 +47,10 @@ RUN apt-get remove -y python3-zipp python3-contourpy python3-kiwisolver python3-
   && python3 -m pip install \
     ndpyramid \
     pyarrow \
+    ray \
     tensorboard \
-    torch
+    torch \
+    torcheval
 
 # R packages needed
 RUN install.r \
