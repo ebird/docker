@@ -23,8 +23,20 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
+      - name: Check for modifications
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            tidyverse:
+              - 'tidyverse/**'
+            geospatial:
+              - 'geospatial/**'
+            dockerst:
+              - 'dockerst/**'
+      
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         
@@ -39,7 +51,8 @@ jobs:
 
       # tidyverse
       - name: Build and push tidyverse image
-        uses: docker/build-push-action@v5
+        if: steps.filter.outputs.tidyverse == 'true'
+        uses: docker/build-push-action@v6
         with:
           context: ./tidyverse
           file: ./tidyverse/Dockerfile
@@ -48,7 +61,8 @@ jobs:
           
       # geospatial
       - name: Build and push geospatial image
-        uses: docker/build-push-action@v5
+        if: steps.filter.outputs.tidyverse == 'true' || steps.filter.outputs.geospatial == 'true'
+        uses: docker/build-push-action@v6
         with:
           context: ./geospatial
           file: ./geospatial/Dockerfile
@@ -57,7 +71,8 @@ jobs:
           
       # dockerst
       - name: Build and push dockerst image
-        uses: docker/build-push-action@v5
+        if: steps.filter.outputs.tidyverse == 'true' || steps.filter.outputs.geospatial == 'true' || steps.filter.outputs.dockerst == 'true'
+        uses: docker/build-push-action@v6
         with:
           context: ./dockerst
           file: ./dockerst/Dockerfile
