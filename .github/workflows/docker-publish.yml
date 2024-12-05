@@ -44,7 +44,7 @@ jobs:
           context: ./tidyverse
           file: ./tidyverse/Dockerfile
           push: true
-          tags: mstrimas/tidyverse:latest
+          tags: ebirdst/tidyverse:latest
           
       # geospatial
       - name: Build and push geospatial image
@@ -53,7 +53,7 @@ jobs:
           context: ./geospatial
           file: ./geospatial/Dockerfile
           push: true
-          tags: mstrimas/geospatial:latest
+          tags: ebirdst/geospatial:latest
           
       # dockerst
       - name: Build and push dockerst image
@@ -62,4 +62,4 @@ jobs:
           context: ./dockerst
           file: ./dockerst/Dockerfile
           push: true
-          tags: mstrimas/dockerst:latest
+          tags: ebirdst/dockerst:latest

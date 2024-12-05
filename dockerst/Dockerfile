@@ -1,5 +1,5 @@
 # docker image for ebird status and trends
-FROM mstrimas/geospatial
+FROM ebirdst/geospatial
 
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 

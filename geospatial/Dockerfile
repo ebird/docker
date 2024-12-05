@@ -1,5 +1,5 @@
 # add r and python geospatial tools
-FROM mstrimas/tidyverse
+FROM ebirdst/tidyverse
 
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
