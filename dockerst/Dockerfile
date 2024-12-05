@@ -94,16 +94,6 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
   && ./aws/install \
   && rm -rf aws awscli-exe-linux-x86_64.zip
 
-# install duckdb, versions on cli, r, and python must match
-ENV DUCKDB_VERSION 0.10.2
-# must manually install libssl1.0.0
-RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
-  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
-  && rm duckdb_cli-linux-amd64.zip \
-  && duckdb :memory: "INSTALL sqlite;" \
-  && r -e 'remotes::install_version("duckdb", version = "'${DUCKDB_VERSION}'", repos = "https://cloud.r-project.org")' \
-  && python3 -m pip install duckdb==${DUCKDB_VERSION}
-
 # install jags
 RUN apt-get update -y && apt-get install -y jags \
   && install.r rjags
