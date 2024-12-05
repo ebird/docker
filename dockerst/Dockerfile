@@ -45,6 +45,7 @@ RUN apt-get update -y \
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN apt-get remove -y python3-zipp python3-contourpy python3-kiwisolver python3-typing-extensions \
   && python3 -m pip install \
+    duckdb==${DUCKDB_VERSION} \
     ndpyramid \
     pyarrow \
     ray \

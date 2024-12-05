@@ -41,7 +41,7 @@ RUN R --slave -e 'install.packages(c("littler", "docopt"), repos = "https://clou
   && ln -s /usr/lib/R/library/littler/examples/install2.r /usr/local/bin/install2.r \
   && ln -s /usr/lib/R/library/littler/examples/installGithub.r /usr/local/bin/installGithub.r
   
-# install tidyverse, from https://hub.docker.com/r/rocker/tidyverse/dockerfile
+# install tidyverse dependencies, from https://hub.docker.com/r/rocker/tidyverse/dockerfile
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libxml2-dev \
   libcairo2-dev \
@@ -53,23 +53,31 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   libcurl4-openssl-dev \
   libssl-dev
 
+# install duckdb, versions on cli, r, and python must match
+ENV DUCKDB_VERSION 1.1.3
+RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
+  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
+  && rm duckdb_cli-linux-amd64.zip \
+  && duckdb :memory: "INSTALL sqlite;"
+  
 RUN install.r \
   tidyverse \
-  data.table \
-  jsonlite \
-  plyr \
+  arrow \
+  bench \
+  data.table\
+  doParallel \
+  foreach \
   here \
-  foreach doParallel \
-  remotes pak \
+  hexbin \
+  jsonlite \
+  patchwork \
+  plyr \
+  RColorBrewer \
+  remotes \
   RSQLite \
-  tictoc bench \
-  RColorBrewer viridis pals scico hexbin patchwork
-
-# install arrow, needs to be compiled from source
-RUN r -e 'Sys.setenv(LIBARROW_BINARY = TRUE); install.packages("arrow", repos = "https://cran.rstudio.com/", type = "source")'
-
-# install development version of stringi to avoid libicui version mismatch
-RUN installGithub.r gagolews/stringi
+  scico \
+  tictoc \
+  viridis
 
 COPY start.sh /start.sh
 WORKDIR /home/docker/
