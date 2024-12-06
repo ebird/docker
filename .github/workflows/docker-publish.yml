@@ -30,6 +30,8 @@ jobs:
         id: filter
         with:
           filters: |
+            ebirdst:
+              - 'ebirdst/**'
             tidyverse:
               - 'tidyverse/**'
             geospatial:
@@ -48,7 +50,17 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+      
+      # ebirdst
+      - name: Build and push tidyverse image
+        if: steps.filter.outputs.ebirdst == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./ebirdst
+          file: ./ebirdst/Dockerfile
+          push: true
+          tags: ebirdst/ebirdst:latest
+      
       # tidyverse
       - name: Build and push tidyverse image
         if: steps.filter.outputs.tidyverse == 'true'
