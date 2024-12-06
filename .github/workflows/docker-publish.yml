@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       # ebirdst
-      - name: Build and push tidyverse image
+      - name: Build and push ebirdst image
         if: steps.filter.outputs.ebirdst == 'true'
         uses: docker/build-push-action@v6
         with:
