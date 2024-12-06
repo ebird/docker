@@ -38,28 +38,28 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # tidyverse
-      - name: Build and push tidyverse image
+      - name: Build and conditionally push tidyverse image
         uses: docker/build-push-action@v5
         with:
           context: ./tidyverse
           file: ./tidyverse/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           tags: mstrimas/tidyverse:latest
           
       # geospatial
-      - name: Build and push geospatial image
+      - name: Build and conditionally push geospatial image
         uses: docker/build-push-action@v5
         with:
           context: ./geospatial
           file: ./geospatial/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           tags: mstrimas/geospatial:latest
           
       # dockerst
-      - name: Build and push dockerst image
+      - name: Build and conditionally push dockerst image
         uses: docker/build-push-action@v5
         with:
           context: ./dockerst
           file: ./dockerst/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           tags: mstrimas/dockerst:latest
