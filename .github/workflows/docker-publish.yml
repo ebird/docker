@@ -43,7 +43,7 @@ jobs:
         with:
           context: ./tidyverse
           file: ./tidyverse/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           tags: mstrimas/tidyverse:latest
           
       # geospatial
@@ -52,7 +52,7 @@ jobs:
         with:
           context: ./geospatial
           file: ./geospatial/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           tags: mstrimas/geospatial:latest
           
       # dockerst
@@ -61,5 +61,5 @@ jobs:
         with:
           context: ./dockerst
           file: ./dockerst/Dockerfile
-          push: true
+          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
           tags: mstrimas/dockerst:latest
