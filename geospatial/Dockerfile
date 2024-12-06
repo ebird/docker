@@ -43,22 +43,17 @@ RUN git clone https://github.com/mapbox/tippecanoe.git \
   && rm -rf tippecanoe
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
-RUN install.r \
+RUN r -e 'install.packages(c("rgdal", "s2", "sf", "lwgeom", "ncdf4", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
+  && install.r \
     fasterize \
     hdf5r \
     landscapemetrics \
-    lwgeom \
     mapproj \
     ncdf4 \
     proj4 \
-    raster \
-    rgdal \
     rgeos \
     rnaturalearth rnaturalearthdata \
-    s2 \
-    sf \
     stars \
-    terra \
   && installGithub.r \
     ropensci/rnaturalearthhires
 
