@@ -12,8 +12,9 @@ RUN apt-get update \
     ed \
     expect \
     ffmpeg \
-    imagemagick libmagick++-dev \
     git \
+    imagemagick libmagick++-dev \
+    jags \
     less \
     locales \
     python3-dev python3-pip \
@@ -42,6 +43,16 @@ RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/d
   && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
   && rm duckdb_cli-linux-amd64.zip \
   && duckdb :memory: "INSTALL sqlite;"
+  
+# tippecanoe for map tiles
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends libsqlite3-dev \
+  && git clone https://github.com/mapbox/tippecanoe.git \
+  && cd tippecanoe \
+  && make -j \
+  && make install \
+  && cd .. \
+  && rm -rf tippecanoe
 
 # install tidyverse
 RUN /rocker_scripts/install_tidyverse.sh
@@ -87,6 +98,7 @@ RUN install2.r \
   magick \
   pryr \
   RColorBrewer \
+  rjags \
   scam \
   scico \
   smoothr \
@@ -108,22 +120,11 @@ RUN install2.r \
       # imbs-hl/ranger \
       sligocki/ranger@sample_skip_bug
 
-# install jags
-RUN apt-get update -y && apt-get install -y jags && install2.r rjags
-
 # Python packages
 COPY requirements.txt /requirements.txt
 RUN python3 -m pip install -r /requirements.txt
 RUN apt-get update -y \
   && apt-get install -y \
     nvidia-cuda-toolkit
-
-# tippecanoe for map tiles
-RUN git clone https://github.com/mapbox/tippecanoe.git \
-  && cd tippecanoe \
-  && make -j \
-  && make install \
-  && cd .. \
-  && rm -rf tippecanoe
 
 CMD ["bash"]
