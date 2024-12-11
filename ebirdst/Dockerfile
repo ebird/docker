@@ -30,6 +30,19 @@ RUN apt-get update \
 # use ImageMagick defaults/commandline values.
 RUN rm -f /etc/ImageMagick-6/policy.xml
 
+# install AWS CLI
+RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
+  && unzip awscli-exe-linux-x86_64.zip \
+  && ./aws/install \
+  && rm -rf aws awscli-exe-linux-x86_64.zip
+
+# install duckdb, versions on cli, r, and python must match
+ENV DUCKDB_VERSION=1.1.3
+RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
+  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
+  && rm duckdb_cli-linux-amd64.zip \
+  && duckdb :memory: "INSTALL sqlite;"
+
 # install tidyverse
 RUN /rocker_scripts/install_tidyverse.sh
 
@@ -95,26 +108,16 @@ RUN install2.r \
       # imbs-hl/ranger \
       sligocki/ranger@sample_skip_bug
 
+# install jags
+RUN apt-get update -y && apt-get install -y jags && install2.r rjags
+
 # Python packages
 COPY requirements.txt /requirements.txt
 RUN python3 -m pip install -r /requirements.txt
 RUN apt-get update -y \
   && apt-get install -y \
     nvidia-cuda-toolkit
-    
-# install AWS CLI
-RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
-  && unzip awscli-exe-linux-x86_64.zip \
-  && ./aws/install \
-  && rm -rf aws awscli-exe-linux-x86_64.zip
 
-# install duckdb, versions on cli, r, and python must match
-ENV DUCKDB_VERSION=1.1.3
-RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
-  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
-  && rm duckdb_cli-linux-amd64.zip \
-  && duckdb :memory: "INSTALL sqlite;"
-  
 # tippecanoe for map tiles
 RUN git clone https://github.com/mapbox/tippecanoe.git \
   && cd tippecanoe \
@@ -122,8 +125,5 @@ RUN git clone https://github.com/mapbox/tippecanoe.git \
   && make install \
   && cd .. \
   && rm -rf tippecanoe
-  
-# install jags
-RUN apt-get update -y && apt-get install -y jags && install2.r rjags
 
 CMD ["bash"]
