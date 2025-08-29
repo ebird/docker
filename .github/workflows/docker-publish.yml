@@ -23,8 +23,22 @@ jobs:
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
+      - name: Check for modifications
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            ebirdst:
+              - 'ebirdst/**'
+            tidyverse:
+              - 'tidyverse/**'
+            geospatial:
+              - 'geospatial/**'
+            dockerst:
+              - 'dockerst/**'
+      
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         
@@ -36,30 +50,43 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+      
+      # ebirdst
+      - name: Build and push ebirdst image
+        if: steps.filter.outputs.ebirdst == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./ebirdst
+          file: ./ebirdst/Dockerfile
+          push: true
+          tags: ebirdst/ebirdst:latest
+      
       # tidyverse
-      - name: Build and conditionally push tidyverse image
-        uses: docker/build-push-action@v5
+      - name: Build and push tidyverse image
+        if: steps.filter.outputs.tidyverse == 'true'
+        uses: docker/build-push-action@v6
         with:
           context: ./tidyverse
           file: ./tidyverse/Dockerfile
-          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-          tags: mstrimas/tidyverse:latest
+          push: true
+          tags: ebirdst/tidyverse:latest
           
       # geospatial
-      - name: Build and conditionally push geospatial image
-        uses: docker/build-push-action@v5
+      - name: Build and push geospatial image
+        if: steps.filter.outputs.tidyverse == 'true' || steps.filter.outputs.geospatial == 'true'
+        uses: docker/build-push-action@v6
         with:
           context: ./geospatial
           file: ./geospatial/Dockerfile
-          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-          tags: mstrimas/geospatial:latest
+          push: true
+          tags: ebirdst/geospatial:latest
           
       # dockerst
-      - name: Build and conditionally push dockerst image
-        uses: docker/build-push-action@v5
+      - name: Build and push dockerst image
+        if: steps.filter.outputs.tidyverse == 'true' || steps.filter.outputs.geospatial == 'true' || steps.filter.outputs.dockerst == 'true'
+        uses: docker/build-push-action@v6
         with:
           context: ./dockerst
           file: ./dockerst/Dockerfile
-          push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-          tags: mstrimas/dockerst:latest
+          push: true
+          tags: ebirdst/dockerst:latest

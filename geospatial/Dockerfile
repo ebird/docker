@@ -1,5 +1,5 @@
 # add r and python geospatial tools
-FROM mstrimas/tidyverse
+FROM ebirdst/tidyverse
 
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
@@ -32,7 +32,7 @@ RUN apt-get update \
     
 # gdal binaries, including python bindings
 RUN apt-get update \
-  && apt-get install -y gdal-bin python3-dev python3-pip python3-numpy python3-gdal
+  && apt-get install -y gdal-bin python3-numpy python3-gdal
   
 # tippecanoe for map tiles
 RUN git clone https://github.com/mapbox/tippecanoe.git \
@@ -43,12 +43,13 @@ RUN git clone https://github.com/mapbox/tippecanoe.git \
   && rm -rf tippecanoe
   
 # install spatial packages, from https://hub.docker.com/r/rocker/geospatial/dockerfile
-RUN  r -e 'install.packages(c("rgdal", "s2", "sf", "lwgeom", "ncdf4", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
+RUN r -e 'install.packages(c("rgdal", "s2", "sf", "lwgeom", "ncdf4", "raster", "terra"), repos = "https://cloud.r-project.org", type = "source")' \
   && install.r \
     fasterize \
     hdf5r \
     landscapemetrics \
     mapproj \
+    ncdf4 \
     proj4 \
     rgeos \
     rnaturalearth rnaturalearthdata \

@@ -1,5 +1,5 @@
 # docker image for ebird status and trends
-FROM mstrimas/geospatial
+FROM ebirdst/geospatial
 
 LABEL maintainer="Matt Strimas-Mackey <mes335@cornell.edu>"
 
@@ -45,6 +45,7 @@ RUN apt-get update -y \
 ENV PIP_BREAK_SYSTEM_PACKAGES 1
 RUN apt-get remove -y python3-zipp python3-contourpy python3-kiwisolver python3-typing-extensions \
   && python3 -m pip install \
+    duckdb==${DUCKDB_VERSION} \
     ndpyramid \
     pyarrow \
     ray \
@@ -92,16 +93,6 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
   && unzip awscli-exe-linux-x86_64.zip \
   && ./aws/install \
   && rm -rf aws awscli-exe-linux-x86_64.zip
-
-# install duckdb, versions on cli, r, and python must match
-ENV DUCKDB_VERSION 0.10.2
-# must manually install libssl1.0.0
-RUN wget https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip \
-  && unzip duckdb_cli-linux-amd64.zip -d /usr/bin/ \
-  && rm duckdb_cli-linux-amd64.zip \
-  && duckdb :memory: "INSTALL sqlite;" \
-  && r -e 'remotes::install_version("duckdb", version = "'${DUCKDB_VERSION}'", repos = "https://cloud.r-project.org")' \
-  && python3 -m pip install duckdb==${DUCKDB_VERSION}
 
 # install jags
 RUN apt-get update -y && apt-get install -y jags \
